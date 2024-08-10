@@ -1,0 +1,112 @@
+# Compiled object files
+*.o
+*.dll
+*.exe
+*.log
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono auto generated files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac junk files
+.DS_Store
+._*
+
+# Rider files
+.idea/
+*.sln.iml
+
+# Visual Studio Code files
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# ASP.NET temporary files
+.vs/
+project.lock.json
+project.fragment.lock.json
+
+# DotNetCore
+project.json.lock
+artifacts/
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+!packages/build/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# StyleCop
+StyleCopReport.xml
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+.mod
+
+# Output directories
+bin/
+obj/
+
+# Vendor directory
+vendor/
+
+# Go module files
+go.sum
+
+# Go build cache
+*.out
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Coverage files
+*.cover
+coverage.out
+
+# Dependency management tools
+Gopkg.lock
+Gopkg.toml
+
+# MacOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
