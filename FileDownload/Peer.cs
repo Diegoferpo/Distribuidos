@@ -34,6 +34,8 @@ namespace FileDownload
             }
 
             Console.WriteLine($"El archivo {fileName} se ha descargado en la ruta {savePath}");
+
+            await ShowFileContent(savePath);
         }
 
         public async Task Start(CancellationToken cancellationToken)
@@ -68,5 +70,20 @@ namespace FileDownload
                 Console.WriteLine($"El archivo {filename} no se encontró.");
             }
         }
+
+        private async Task ShowFileContent(string filePath)
+        {
+            try
+            {
+                var content = await File.ReadAllTextAsync(filePath);
+                Console.WriteLine($"Contenido del archivo {filePath}: Diego F. Portillo Bibiano");
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al leer el archivo {filePath}: {ex.Message}");
+            }
+        }
+
     }
-}
+}   

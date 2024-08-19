@@ -17,4 +17,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+#Archivo de texto
+RUN echo "Diego F. Portillo Bibiano" > /tmp/nombreAlumno.txt
+
 ENTRYPOINT ["dotnet", "FileDownload.dll"]
