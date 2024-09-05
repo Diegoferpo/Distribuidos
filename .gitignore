@@ -35,6 +35,7 @@ $RECYCLE.BIN/
 # Rider files
 .idea/
 *.sln.iml
+.sin
 
 # Visual Studio Code files
 .vscode/
