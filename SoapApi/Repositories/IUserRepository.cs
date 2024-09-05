@@ -10,5 +10,6 @@ public interface IUserRepository
     public Task <IList<UserModel>> GetAllByEmailAsync(string email, CancellationToken cancellationToken);
     public Task DeleteByIdAsync (UserModel user, CancellationToken cancellationToken);
     public Task <UserModel> CreateAsync(UserModel user, CancellationToken cancellationToken);
-    
+    public Task UpdateAsync(UserModel user, CancellationToken cancellationToken);
+
 }

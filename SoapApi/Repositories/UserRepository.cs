@@ -24,6 +24,22 @@ namespace SoapApi.Repositories{
             return user.ToModel();
         }
 
+        public async Task UpdateAsync(UserModel user, CancellationToken cancellationToken)
+        {
+            var existingUserEntity = await _dbContext.Users.FirstOrDefaultAsync(e => e.Id == user.Id, cancellationToken);
+
+            if (existingUserEntity == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+
+            existingUserEntity.FirstName = user.FirstName;
+            existingUserEntity.LastName = user.LastName;
+            existingUserEntity.Email = user.Email;
+            
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
         public async Task <IList<UserModel>> GetAllAsync(CancellationToken cancellationToken)
         {
             var users = await _dbContext.Users.AsNoTracking().ToListAsync(cancellationToken);

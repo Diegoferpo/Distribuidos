@@ -73,4 +73,22 @@ public class UserService : IUserContract
             var createdUser = await _userRepository.CreateAsync(user, cancellationToken);
             return createdUser.ToDto();
         }
+
+    public async Task<UserResponseDto> UpdateUser(Guid userId, UserUpdateRequesDto request, CancellationToken cancellationToken){
+
+        var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+
+        if(user == null){
+            throw new FaultException("User not found");
+        }
+
+        user.FirstName = request.FirstName;
+        user.LastName = request.LastName;
+        user.Email = request.Email;
+        user.BirthDate = request.BirthDate;
+
+        await _userRepository.UpdateAsync(user, cancellationToken);
+
+        return user.ToDto();
+    }
 }
