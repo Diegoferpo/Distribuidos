@@ -1,14 +1,9 @@
-using System.CodeDom;
 using Microsoft.EntityFrameworkCore;
-using SoapApi.Contracts;
-using SoapApi.Dtos;
 using SoapApi.Infrastructure;
 using SoapApi.Mappers;
 using SoapApi.Models;
 
 namespace SoapApi.Repositories{
-
-
 
     public class UserRepository : IUserRepository
     {
