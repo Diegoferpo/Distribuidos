@@ -22,6 +22,8 @@ public interface IUserContract
     [OperationContract]
     public Task<UserResponseDto> CreateUser(UserCreateRequestDto user, CancellationToken cancellationToken);
 
-    
+    [OperationContract]
+    public Task<UserResponseDto> UpdateUser (Guid userId, UserUpdateRequesDto request, CancellationToken cancellationToken);
+
 }
 
