@@ -10,10 +10,19 @@ public static class GroupMapper{
         return new GroupResponse{
             Id = group.Id,
             Name = group.Name,
-            CreationDate = group.CreationDate
+            CreationDate = group.CreationDate, 
+            Users = group.Users.ToDto()
         };
     }
 
+    public static List<UserResponse> ToDto(this IEnumerable<UserModel> users) {
+        return users.Select(s => new UserResponse {
+            Id = s.Id,
+            Name = s.FirstName + " " + s.LastName,
+            Email = s.Email
+        }).ToList();
+    }   
+              
     public static GroupModel ToModel (this GroupEntity group){
         if (group is null){
             return null;
