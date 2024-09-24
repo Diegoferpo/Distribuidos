@@ -32,11 +32,12 @@ public class GroupsController : ControllerBase
 
     // localhost:port/groups?name=GroupName
     [HttpGet]
-    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, CancellationToken cancellationToken)
+    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, [FromQuery] int pageNumber, [FromQuery] int pageSize, [FromQuery] string orderBy, CancellationToken cancellationToken)
     {
 
-        var lista = await _groupService.GetByNameAsync(name, cancellationToken);
+        var lista = await _groupService.GetByNameAsync(name, pageNumber, pageSize, orderBy, cancellationToken);
         
         return Ok(lista.Select(lista => lista.ToDto()).ToList());
     }
 }
+
