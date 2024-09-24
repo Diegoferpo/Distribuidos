@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RestApi.Dtos;
 using RestApi.Mappers;
@@ -10,6 +11,8 @@ namespace RestApi.Controller;
 [Route("[controller]")]
 public class GroupsController : ControllerBase
 {
+public class GroupsController : ControllerBase
+{
     private readonly IGroupService _groupService;
 
     public GroupsController(IGroupService groupService)
@@ -18,10 +21,16 @@ public class GroupsController : ControllerBase
     }
 
     // localhost:port/groups/192282892929
+
+    // localhost:port/groups/192282892929
     [HttpGet("{id}")]
     public async Task<ActionResult<GroupResponse>> GetGroupById(string id, CancellationToken cancellationToken)
     {
+    public async Task<ActionResult<GroupResponse>> GetGroupById(string id, CancellationToken cancellationToken)
+    {
         var group = await _groupService.GetGroupByIdAsync(id, cancellationToken);
+        if (group is null)
+        {
         if (group is null)
         {
             return NotFound();
