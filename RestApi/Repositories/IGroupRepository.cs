@@ -1,4 +1,5 @@
 using RespApi.Models;
+using RestApi.Dtos;
 
 namespace RestApi.Repositories;
 
@@ -8,4 +9,6 @@ public interface IGroupRepository{
     Task DeleteByIdAsync(string id, CancellationToken cancellationToken);
     Task <GroupModel> CreateAsync (string name, Guid[] users, CancellationToken cancellationToken);
     Task<GroupModel> GetByNameAsync(string name, CancellationToken cancellationToken);
+    Task UpdateGroupAsync (string id, string name, Guid[] users, CancellationToken cancellationToken);
+    
 }

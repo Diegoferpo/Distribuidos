@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-using MongoDB.Bson;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using RespApi.Models;
@@ -78,4 +76,11 @@ public class GroupRepository : IGroupRepository{
         }
     }
 
+    public async Task UpdateGroupAsync(string id, string name, Guid[] users, CancellationToken cancellationToken)
+    {
+        var filter = Builders<GroupEntity>.Filter.Eq(x => x.Id, id);
+        var update = Builders<GroupEntity>.Update.Set(x => x.Name, name).Set(x => x.Users, users);
+
+        await _groups.UpdateOneAsync(filter, update, cancellationToken : cancellationToken);
+    }
 }
