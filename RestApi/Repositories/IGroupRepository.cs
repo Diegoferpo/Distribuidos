@@ -1,9 +1,14 @@
 using RespApi.Models;
-using RestApi.Models;
+using RestApi.Dtos;
 
 namespace RestApi.Repositories;
 
 public interface IGroupRepository{
     Task <GroupModel> GetByIdAsync(string id, CancellationToken cancellationToken);
-    Task<IList<GroupModel>> GetByNameAsync(string name, int pageNumber, int pageSize, string orderBy, CancellationToken cancellationToken);
+    Task<IList<GroupModel>> GetAllByNameAsync(string name, int pageNumber, int pageSize, string orderBy, CancellationToken cancellationToken);
+    Task DeleteByIdAsync(string id, CancellationToken cancellationToken);
+    Task <GroupModel> CreateAsync (string name, Guid[] users, CancellationToken cancellationToken);
+    Task<GroupModel> GetByNameAsync(string name, CancellationToken cancellationToken);
+    Task UpdateGroupAsync (string id, string name, Guid[] users, CancellationToken cancellationToken);
+    
 }
