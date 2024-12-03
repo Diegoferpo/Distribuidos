@@ -1,4 +1,6 @@
+using System.Text.RegularExpressions;
 using RespApi.Repositories;
+using RestApi.Exceptions;
 using RestApi.Models;
 using RestApi.Repositories;
 
@@ -35,8 +37,8 @@ public class GroupService : IGroupService {
 
 
 
-    public async Task<IList<GroupUserModel>> GetByNameAsync (string name, int pageNumber, int pageSize, string orderBy, CancellationToken cancellationToken){
-        var group = await _groupRepository.GetByNameAsync(name, pageNumber, pageSize, orderBy, cancellationToken);
+    public async Task<IList<GroupUserModel>> GetAllByNameAsync (string name, int pageNumber, int pageSize, string orderBy, CancellationToken cancellationToken){
+        var group = await _groupRepository.GetAllByNameAsync(name, pageNumber, pageSize, orderBy, cancellationToken);
         if (group is null){
             return new List<GroupUserModel>();
         }
@@ -48,5 +50,41 @@ public class GroupService : IGroupService {
         }));
 
         return groupUserModels.ToList();
+    }
+
+    public async Task DeleteGroupByIdAsync(string id, CancellationToken cancellationToken)
+    {
+        var group = await _groupRepository.GetByIdAsync(id, cancellationToken);
+
+        if (group is null)
+        {
+            throw new GroupNotFoundException();
+        }
+
+        await _groupRepository.DeleteByIdAsync(id, cancellationToken);
+    }
+
+
+    public async Task<GroupUserModel> CreateGroupAsync(string name, Guid[] users, CancellationToken cancellationToken)
+    {
+        if (users.Length == 0){
+            throw new InvalidGroupRequestFormatException();
+        }
+
+        var groups = await _groupRepository.GetByNameAsync(name, cancellationToken);
+        if (groups is null){
+            throw new GroupAlreadyExistsException();
+        }
+
+        var group = await _groupRepository.CreateAsync(name, users, cancellationToken);
+        return new GroupUserModel{
+            Id = group.Id,
+            Name = group.Name,
+            CreationDate = group.CreationDate,
+            Users = (await Task.WhenAll(
+                group.Users.Select(userId => _userRepository.GetByIdAsync(
+                    userId, cancellationToken)))).Where(user => user != null)
+                    .ToList()
+        };
     }
 }
