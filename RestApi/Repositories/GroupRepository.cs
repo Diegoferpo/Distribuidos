@@ -62,6 +62,7 @@ public class GroupRepository : IGroupRepository{
    
     }
 
+
         public async Task<GroupModel> GetByNameAsync(string name, CancellationToken cancellationToken)
         {
         try
@@ -82,5 +83,7 @@ public class GroupRepository : IGroupRepository{
         var update = Builders<GroupEntity>.Update.Set(x => x.Name, name).Set(x => x.Users, users);
 
         await _groups.UpdateOneAsync(filter, update, cancellationToken : cancellationToken);
-    }
+
+
+
 }

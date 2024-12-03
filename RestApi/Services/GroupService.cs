@@ -1,3 +1,6 @@
+
+using System.Text.RegularExpressions;
+using RespApi.Repositories
 using RestApi.Exceptions;
 using RestApi.Models;
 using RestApi.Repositories;
@@ -73,6 +76,7 @@ public class GroupService : IGroupService {
         if (groups is null){
             throw new GroupAlreadyExistsException();
         }
+
         foreach(var userId in users){
             var user = _userRepository.GetByIdAsync(userId, cancellationToken);
             if(user == null){
@@ -116,4 +120,5 @@ public class GroupService : IGroupService {
 
         await _groupRepository.UpdateGroupAsync(id, name, users, cancellationToken);
     }
+
 }

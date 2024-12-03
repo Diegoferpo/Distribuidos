@@ -2,8 +2,6 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using RespApi.Dtos;
 using RestApi.Exceptions;
-using RestApi.Dtos;
-using RestApi.Exceptions;
 using RestApi.Mappers;
 using RestApi.Services;
 
@@ -75,6 +73,7 @@ public class GroupsController : ControllerBase
             return BadRequest(NewValidationProblemDetails("One or more validation problems ocurred", HttpStatusCode.BadRequest, new Dictionary<string, string[]> {
                 {"Id", ["The specified IdUser already exists in the database"]}
             }));
+
         }
     }
 
@@ -110,5 +109,6 @@ public class GroupsController : ControllerBase
             }));
         }
     }
+
 }
 
