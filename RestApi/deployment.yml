@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: groups-api
+  namespace: backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: groups-api
+  template:
+    metadata:
+      labels:
+        app: groups-api
+    spec:
+      containers:
+      - name: groups-api
+        image: localhost:5000/groups-api:1
+        env: 
+        - name: "UserServiceEndpoint"
+          value: "http://users-api.svc.backend-api.svc.cluster.local:8082/UserService.svc"
+        - name: "MongoDb__Groups__ConnectionString"
+          valueFrom:
+            secretKeyRef:
+              name: groups-api-secrets
+              key: connection-string
+        ports:
+        - containerPort: 8083
