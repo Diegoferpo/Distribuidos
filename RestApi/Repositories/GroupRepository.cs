@@ -62,6 +62,7 @@ public class GroupRepository : IGroupRepository{
    
     }
 
+
         public async Task<GroupModel> GetByNameAsync(string name, CancellationToken cancellationToken)
         {
         try
@@ -82,5 +83,20 @@ public class GroupRepository : IGroupRepository{
         var update = Builders<GroupEntity>.Update.Set(x => x.Name, name).Set(x => x.Users, users);
 
         await _groups.UpdateOneAsync(filter, update, cancellationToken : cancellationToken);
-    }
+=======
+
+        public async Task<GroupModel> GetByNameAsync(string name, CancellationToken cancellationToken)
+        {
+        try
+        {
+            var filter = Builders<GroupEntity>.Filter.Regex(group => group.Name, new BsonRegularExpression(name, "i"));
+            var group = await _groups.Find(filter).FirstOrDefaultAsync(cancellationToken);
+            return group.ToModel();
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
+   }
+
 }
