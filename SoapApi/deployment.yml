@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-api
+  namespace: backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      containers:
+      - name: users-api
+        image: localhost:5000/users-api:1
+        env: 
+        - name: ConnectionStrings_DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: users-api-secrets
+              key: connection-string 
+        ports:
+        - containerPort: 8082

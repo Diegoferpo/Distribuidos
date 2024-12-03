@@ -16,6 +16,21 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(s => new MongoClient(bu
 builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IMongoClient, MongoClient>(s => 
+{
+    var connectionString = Environment.GetEnvironmentVariable("MongoDb_Groups_ConnectionString");
+    var settings = MongoClientSettings.FromConnectionString(connectionString);
+    var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+    if (!string.IsNullOrEmpty(password))
+    {
+        settings.Credential = MongoCredential.CreateCredential(
+            password
+        );
+    }
+
+    return new MongoClient(settings);
+});
 
 var app = builder.Build();
 

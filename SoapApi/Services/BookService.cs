@@ -23,7 +23,7 @@ namespace SoapApi.Services
             return book.Select(book => book.ToDto()).ToList();
             }
 
-            throw new FaultException(reason: "No hay ningun libro con " + title + " como titulo");
+            throw new FaultException(reason: "Error al encontrar el producto " + title + " como titulo");
         }
     }
 }
